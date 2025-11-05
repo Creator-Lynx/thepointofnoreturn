@@ -29,7 +29,7 @@ public class IntroLoadingSceneScript : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
         sceneLoading.allowSceneActivation = true;
-        SceneManager.UnloadSceneAsync(0);
+        //SceneManager.UnloadSceneAsync(0);
     }
     
 
