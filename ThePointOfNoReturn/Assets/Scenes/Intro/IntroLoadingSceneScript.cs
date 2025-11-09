@@ -10,13 +10,15 @@ public class IntroLoadingSceneScript : MonoBehaviour
         StartCoroutine(LoadingScene());
         DontDestroyOnLoad(this);
         Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     bool allowSceneActivation = false;
     public void AnimationEndCallBack()
     {
         allowSceneActivation = true;
-        //sceneLoading.allowSceneActivation = true;
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
     }
     IEnumerator LoadingScene()
     {
