@@ -38,6 +38,8 @@ public class MoveController : MonoBehaviour
         moveAction = InputSystem.actions.FindAction("Move");
         jumpAction = InputSystem.actions.FindAction("Jump");
         lookAction = InputSystem.actions.FindAction("Look");
+
+        //Application.targetFrameRate = 60;
     }
 
     void Update()
@@ -64,20 +66,30 @@ public class MoveController : MonoBehaviour
     {
         _rigidbody.MovePosition(
             _rigidbody.position +
-            transform.forward * moveVector.y * movementSpeed * Time.fixedDeltaTime + 
+            transform.forward * moveVector.y * movementSpeed * Time.fixedDeltaTime +
             transform.right * moveVector.x * movementSpeed * Time.fixedDeltaTime);
     }
-    
+
+
+    float _cameraCurrentRotationX = 0f;
     void Looking()
     {
-        float rotationPlayerY = lookVector.x * lookSpeed * Time.deltaTime;
-        Quaternion deltaRotation = Quaternion.Euler(0, rotationPlayerY, 0);
-        //_rigidbody.MoveRotation(_rigidbody.rotation * deltaRotation);
-        transform.Rotate(deltaRotation.eulerAngles);
+        float deltaRotationPlayerY = lookVector.x * lookSpeed * Time.smoothDeltaTime;//* Time.deltaTime;
 
-        float rotationCameraX = lookVector.y * lookSpeed * Time.deltaTime;
-        Quaternion deltaXRotation = Quaternion.Euler(-rotationCameraX, 0, 0);
-        if (_cameraTransform.rotation.x < 90f && _cameraTransform.rotation.x > -90f)
-            _cameraTransform.Rotate(deltaXRotation.eulerAngles);
+        //Quaternion deltaRotation = Quaternion.Euler(0, rotationPlayerY, 0);
+        //_rigidbody.MoveRotation(_rigidbody.rotation * deltaRotation);
+        //transform.Rotate(deltaRotation.eulerAngles);
+        _rigidbody.rotation = Quaternion.Euler(
+            _rigidbody.rotation.eulerAngles + Vector3.up * deltaRotationPlayerY);
+
+
+        float deltaRotationCameraX = lookVector.y * lookSpeed * Time.smoothDeltaTime;//* Time.deltaTime;
+        //Quaternion deltaXRotation = Quaternion.Euler(-rotationCameraX, 0, 0);
+        //if (_cameraTransform.rotation.x < 90f && _cameraTransform.rotation.x > -90f)
+        //    _cameraTransform.Rotate(deltaXRotation.eulerAngles);
+        _cameraCurrentRotationX -= deltaRotationCameraX;
+        _cameraCurrentRotationX = Mathf.Clamp(_cameraCurrentRotationX, -90f, 90f);
+        _cameraTransform.localRotation = Quaternion.Euler(_cameraCurrentRotationX, 0f, 0f);
+        
     }
 }
