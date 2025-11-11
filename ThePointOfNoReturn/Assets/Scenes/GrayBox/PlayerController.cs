@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float lookSmoothing = 0.1f;
     [Header("Movement settings")]
     [SerializeField] float movementSpeed = 5f;
+    [SerializeField] float movementSmooth = 0.1f;
     [SerializeField] float airControl = 0.2f;
     [SerializeField] float jumpHeight = 2f;
     [SerializeField] float gravityValue = -10f;
@@ -59,13 +60,20 @@ public class PlayerController : MonoBehaviour
     float _yAxisVelocity;
     Vector2 moveVector2Input;
     Vector2 originMovement4Jump = Vector2.up;
+    Vector2 smoothVelocity4Movement;
     void Moving()
     {
+        //reading input and applying airControl
         if (_characterController.isGrounded)
-            moveVector2Input = moveAction.ReadValue<Vector2>();
+        {
+            //moveVector2Input = moveAction.ReadValue<Vector2>();
+            moveVector2Input = Vector2.SmoothDamp(
+                moveVector2Input, moveAction.ReadValue<Vector2>(),
+                ref smoothVelocity4Movement, movementSmooth);
+        }
         else
         {
-            if(moveAction.IsInProgress())
+            if (moveAction.IsInProgress())
                 moveVector2Input = Vector2.Lerp(
                     originMovement4Jump, moveAction.ReadValue<Vector2>(), airControl);
         }
@@ -99,7 +107,7 @@ public class PlayerController : MonoBehaviour
 
     float _cameraCurrentRotationX = 0f;
     Vector2 lookVector2Input;
-    Vector2 smoothVelocity;
+    Vector2 smoothVelocity4Look;
     Vector2 currentLookVector2;
     void Looking()
     {
@@ -110,7 +118,7 @@ public class PlayerController : MonoBehaviour
         if (enableMouseSmoothing)
             currentLookVector2 =
                 Vector2.SmoothDamp(
-                    currentLookVector2, lookVector2Input, ref smoothVelocity, lookSmoothing);
+                    currentLookVector2, lookVector2Input, ref smoothVelocity4Look, lookSmoothing);
         else
             currentLookVector2 = lookVector2Input;
 

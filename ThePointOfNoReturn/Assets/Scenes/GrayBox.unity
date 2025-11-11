@@ -505,7 +505,8 @@ MonoBehaviour:
   enableMouseSmoothing: 1
   lookSmoothing: 0.05
   movementSpeed: 5
-  airControl: 0.26
+  movementSmooth: 0.05
+  airControl: 0.25
   jumpHeight: 1.2
   gravityValue: -30
   screenText: {fileID: 444488457}
