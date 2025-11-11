@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class MoveControllerCharacter : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     //redisign
     [SerializeField] InputActionAsset InputActions;
