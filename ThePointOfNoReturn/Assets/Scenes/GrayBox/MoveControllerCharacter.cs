@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class MoveControllerCharacter : MonoBehaviour
 {
@@ -64,9 +65,13 @@ public class MoveControllerCharacter : MonoBehaviour
 
 
         //jump applied
+        //h = V^2 / 2g for falling ogject
+        //V^2 = 2hg
         if (jumpAction.WasPressedThisFrame() && _characterController.isGrounded)
             _yAxisVelocity = Mathf.Sqrt(jumpHeight * -2f * gravityValue);
-        //gravity applied
+        //gravity applied 
+        //V += g*dt
+        //dS = V*dt 
         if (!_characterController.isGrounded)
             _yAxisVelocity += gravityValue * Time.deltaTime;
         movementVector.y = _yAxisVelocity * Time.deltaTime;
@@ -89,6 +94,11 @@ public class MoveControllerCharacter : MonoBehaviour
         _cameraCurrentRotationX = Mathf.Clamp(_cameraCurrentRotationX, -90f, 90f);
         //apply rotation
         _cameraTransform.localRotation = Quaternion.Euler(_cameraCurrentRotationX, 0f, 0f);
-        
+
+        screenText.text = "FPS = " + 1f / Time.smoothDeltaTime + "\nSens = " + lookSpeed; 
     }
+
+
+
+    [SerializeField] Text screenText;
 }
