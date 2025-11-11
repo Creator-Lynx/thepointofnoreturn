@@ -40,7 +40,7 @@ public class MoveControllerCharacter : MonoBehaviour
         jumpAction = InputSystem.actions.FindAction("Jump");
         lookAction = InputSystem.actions.FindAction("Look");
 
-        Application.targetFrameRate = 60;
+        //Application.targetFrameRate = 60;
     }
 
     void Update()
