@@ -501,9 +501,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InputActions: {fileID: -944628639613478452, guid: 289c1b55c9541489481df5cc06664110, type: 3}
   _cameraTransform: {fileID: 1267478319}
-  movementSpeed: 5
   lookSpeed: 0.12
+  enableMouseSmoothing: 1
   lookSmoothing: 0.05
+  movementSpeed: 5
+  airControl: 0.26
   jumpHeight: 1.2
   gravityValue: -30
   screenText: {fileID: 444488457}

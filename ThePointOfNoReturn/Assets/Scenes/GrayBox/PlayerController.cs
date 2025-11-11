@@ -14,11 +14,14 @@ public class PlayerController : MonoBehaviour
     InputAction jumpAction;
     InputAction lookAction;
 
-    //variable
-    [SerializeField] float movementSpeed = 5f;
+    //variables
+    [Header("Look settings")]
     [SerializeField] float lookSpeed = 5f;
     [SerializeField] bool enableMouseSmoothing = true;
     [SerializeField] float lookSmoothing = 0.1f;
+    [Header("Movement settings")]
+    [SerializeField] float movementSpeed = 5f;
+    [SerializeField] float airControl = 0.2f;
     [SerializeField] float jumpHeight = 2f;
     [SerializeField] float gravityValue = -10f;
 
@@ -44,7 +47,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        moveVector2Input = moveAction.ReadValue<Vector2>();
+
        
 
         //if (jumpAction.WasPressedThisFrame()) Jump();
@@ -55,20 +58,34 @@ public class PlayerController : MonoBehaviour
 
     float _yAxisVelocity;
     Vector2 moveVector2Input;
+    Vector2 originMovement4Jump = Vector2.up;
     void Moving()
     {
+        if (_characterController.isGrounded)
+            moveVector2Input = moveAction.ReadValue<Vector2>();
+        else
+        {
+            if(moveAction.IsInProgress())
+                moveVector2Input = Vector2.Lerp(
+                    originMovement4Jump, moveAction.ReadValue<Vector2>(), airControl);
+        }
+
         //horizontal moving calculated
         Vector3 movementVector =
             transform.forward * moveVector2Input.y * movementSpeed * Time.deltaTime +
             transform.right * moveVector2Input.x * movementSpeed * Time.deltaTime;
 
 
-
+        if (_characterController.isGrounded) _yAxisVelocity = -0.5f;
         //jump applied
         //h = V^2 / 2g for falling ogject
         //V^2 = 2hg
         if (jumpAction.WasPressedThisFrame() && _characterController.isGrounded)
+        {
             _yAxisVelocity = Mathf.Sqrt(jumpHeight * -2f * gravityValue);
+            originMovement4Jump = moveVector2Input;
+        }
+            
         //gravity applied 
         //V += g*dt
         //dS = V*dt 
@@ -92,7 +109,8 @@ public class PlayerController : MonoBehaviour
         //smoothing input vector if needed
         if (enableMouseSmoothing)
             currentLookVector2 =
-                Vector2.SmoothDamp(currentLookVector2, lookVector2Input, ref smoothVelocity, lookSmoothing);
+                Vector2.SmoothDamp(
+                    currentLookVector2, lookVector2Input, ref smoothVelocity, lookSmoothing);
         else
             currentLookVector2 = lookVector2Input;
 
