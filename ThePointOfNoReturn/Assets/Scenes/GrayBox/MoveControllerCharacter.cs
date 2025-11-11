@@ -40,7 +40,7 @@ public class MoveControllerCharacter : MonoBehaviour
         jumpAction = InputSystem.actions.FindAction("Jump");
         lookAction = InputSystem.actions.FindAction("Look");
 
-        //Application.targetFrameRate = 60;
+        Application.targetFrameRate = 60;
     }
 
     void Update()
@@ -84,11 +84,11 @@ public class MoveControllerCharacter : MonoBehaviour
     void Looking()
     {
         //player Y rotating
-        float deltaRotationPlayerY = lookVector2Input.x * lookSpeed * Time.smoothDeltaTime;
+        float deltaRotationPlayerY = lookVector2Input.x * lookSpeed;
         transform.Rotate(deltaRotationPlayerY * Vector3.up);
 
         //camera X rotating. get the delta
-        float deltaRotationCameraX = lookVector2Input.y * lookSpeed * Time.smoothDeltaTime;
+        float deltaRotationCameraX = lookVector2Input.y * lookSpeed;
         //camera vertical clamping
         _cameraCurrentRotationX -= deltaRotationCameraX;
         _cameraCurrentRotationX = Mathf.Clamp(_cameraCurrentRotationX, -90f, 90f);
