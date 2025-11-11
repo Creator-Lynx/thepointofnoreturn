@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -22,9 +23,12 @@ public class PlayerController : MonoBehaviour
     [Header("Movement settings")]
     [SerializeField] float movementSpeed = 5f;
     [SerializeField] float movementSmooth = 0.1f;
+    [Header("In air movement")]
     [SerializeField] float airControl = 0.2f;
-    [SerializeField] float jumpHeight = 2f;
     [SerializeField] float gravityValue = -10f;
+    [Header("Jump settings")]
+    [SerializeField] float jumpHeight = 2f;
+    [SerializeField] float jumpDelay = 0.2f;
 
     void OnEnable()
     {
@@ -49,18 +53,26 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 
-       
 
-        //if (jumpAction.WasPressedThisFrame()) Jump();
+
+        if (jumpAction.WasPressedThisFrame()) StartCoroutine(JumpInputCorutine());
 
         Looking();
         Moving();
+    }
+    
+    IEnumerator JumpInputCorutine()
+    {
+        isWanna2Jump = true;
+        yield return new WaitForSeconds(jumpDelay);
+        isWanna2Jump = false;
     }
 
     float _yAxisVelocity;
     Vector2 moveVector2Input;
     Vector2 originMovement4Jump = Vector2.up;
     Vector2 smoothVelocity4Movement;
+    bool isWanna2Jump = false;
     void Moving()
     {
         //reading input and applying airControl
@@ -90,10 +102,11 @@ public class PlayerController : MonoBehaviour
         //jump applied
         //h = V^2 / 2g for falling ogject
         //V^2 = 2hg
-        if (jumpAction.WasPressedThisFrame() && _characterController.isGrounded)
+        if (isWanna2Jump && _characterController.isGrounded)
         {
             _yAxisVelocity = Mathf.Sqrt(jumpHeight * -2f * gravityValue);
             originMovement4Jump = moveVector2Input;
+            isWanna2Jump = false;
         }
             
         //gravity applied 

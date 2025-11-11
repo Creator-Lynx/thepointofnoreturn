@@ -507,8 +507,9 @@ MonoBehaviour:
   movementSpeed: 5
   movementSmooth: 0.05
   airControl: 0.25
-  jumpHeight: 1.2
   gravityValue: -30
+  jumpHeight: 1.2
+  jumpDelay: 0.2
   screenText: {fileID: 444488457}
 --- !u!1 &435022250
 GameObject:
