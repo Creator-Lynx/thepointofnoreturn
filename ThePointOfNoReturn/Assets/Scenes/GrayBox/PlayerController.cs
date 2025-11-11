@@ -70,9 +70,11 @@ public class PlayerController : MonoBehaviour
             moveVector2Input = Vector2.SmoothDamp(
                 moveVector2Input, moveAction.ReadValue<Vector2>(),
                 ref smoothVelocity4Movement, movementSmooth);
+            originMovement4Jump = moveVector2Input;
         }
         else
         {
+            moveVector2Input = originMovement4Jump;
             if (moveAction.IsInProgress())
                 moveVector2Input = Vector2.Lerp(
                     originMovement4Jump, moveAction.ReadValue<Vector2>(), airControl);
@@ -84,7 +86,7 @@ public class PlayerController : MonoBehaviour
             transform.right * moveVector2Input.x * movementSpeed * Time.deltaTime;
 
 
-        if (_characterController.isGrounded) _yAxisVelocity = -0.5f;
+        //if (_characterController.isGrounded) _yAxisVelocity = -0.5f;
         //jump applied
         //h = V^2 / 2g for falling ogject
         //V^2 = 2hg
