@@ -1,8 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
-public class MoveController : MonoBehaviour
+public class MoveControllerRigidbody : MonoBehaviour
 {
     //redisign
     [SerializeField] InputActionAsset InputActions;
