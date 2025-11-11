@@ -6,9 +6,6 @@ public class MoveControllerCharacter : MonoBehaviour
 {
     //redisign
     [SerializeField] InputActionAsset InputActions;
-    Vector2 moveVector2Input;
-    Vector2 lookVector2Input;
-
 
     //basics
     CharacterController _characterController;
@@ -20,6 +17,8 @@ public class MoveControllerCharacter : MonoBehaviour
     //variable
     [SerializeField] float movementSpeed = 5f;
     [SerializeField] float lookSpeed = 5f;
+    [SerializeField] bool enableMouseSmoothing = true;
+    [SerializeField] float lookSmoothing = 0.1f;
     [SerializeField] float jumpHeight = 2f;
     [SerializeField] float gravityValue = -10f;
 
@@ -46,7 +45,7 @@ public class MoveControllerCharacter : MonoBehaviour
     void Update()
     {
         moveVector2Input = moveAction.ReadValue<Vector2>();
-        lookVector2Input = lookAction.ReadValue<Vector2>();
+       
 
         //if (jumpAction.WasPressedThisFrame()) Jump();
 
@@ -55,6 +54,7 @@ public class MoveControllerCharacter : MonoBehaviour
     }
 
     float _yAxisVelocity;
+    Vector2 moveVector2Input;
     void Moving()
     {
         //horizontal moving calculated
@@ -81,14 +81,27 @@ public class MoveControllerCharacter : MonoBehaviour
 
 
     float _cameraCurrentRotationX = 0f;
+    Vector2 lookVector2Input;
+    Vector2 smoothVelocity;
+    Vector2 currentLookVector2;
     void Looking()
     {
+        //getting input
+        lookVector2Input = lookAction.ReadValue<Vector2>();
+
+        //smoothing input vector if needed
+        if (enableMouseSmoothing)
+            currentLookVector2 =
+                Vector2.SmoothDamp(currentLookVector2, lookVector2Input, ref smoothVelocity, lookSmoothing);
+        else
+            currentLookVector2 = lookVector2Input;
+
         //player Y rotating
-        float deltaRotationPlayerY = lookVector2Input.x * lookSpeed;
+        float deltaRotationPlayerY = currentLookVector2.x * lookSpeed;
         transform.Rotate(deltaRotationPlayerY * Vector3.up);
 
         //camera X rotating. get the delta
-        float deltaRotationCameraX = lookVector2Input.y * lookSpeed;
+        float deltaRotationCameraX = currentLookVector2.y * lookSpeed;
         //camera vertical clamping
         _cameraCurrentRotationX -= deltaRotationCameraX;
         _cameraCurrentRotationX = Mathf.Clamp(_cameraCurrentRotationX, -90f, 90f);

@@ -503,6 +503,7 @@ MonoBehaviour:
   _cameraTransform: {fileID: 1267478319}
   movementSpeed: 5
   lookSpeed: 0.12
+  lookSmoothing: 0.05
   jumpHeight: 1.2
   gravityValue: -30
   screenText: {fileID: 444488457}
