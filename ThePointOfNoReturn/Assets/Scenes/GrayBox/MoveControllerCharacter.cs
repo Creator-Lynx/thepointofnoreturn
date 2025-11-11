@@ -94,8 +94,6 @@ public class MoveControllerCharacter : MonoBehaviour
         _cameraCurrentRotationX = Mathf.Clamp(_cameraCurrentRotationX, -90f, 90f);
         //apply rotation
         _cameraTransform.localRotation = Quaternion.Euler(_cameraCurrentRotationX, 0f, 0f);
-
-        screenText.text = "FPS = " + 1f / Time.smoothDeltaTime + "\nSens = " + lookSpeed; 
     }
 
 
