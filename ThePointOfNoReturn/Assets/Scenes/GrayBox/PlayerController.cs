@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
 
     //basics
     CharacterController _characterController;
+    PlayerSoundsOperator _sounds;
     [SerializeField] Transform _cameraTransform;
     InputAction moveAction;
     InputAction jumpAction;
@@ -29,6 +30,9 @@ public class PlayerController : MonoBehaviour
     [Header("Jump settings")]
     [SerializeField] float jumpHeight = 2f;
     [SerializeField] float jumpDelay = 0.2f;
+    [Space(20)]
+    [Header("Player SFX settings")]
+    [SerializeField] float thresholdToStartWalkSound = 0.4f;
 
     void OnEnable()
     {
@@ -43,6 +47,12 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         _characterController = GetComponent<CharacterController>();
+        _sounds = GetComponentInChildren<PlayerSoundsOperator>();
+        if(_characterController == null || _sounds == null) 
+            Debug.LogWarning (
+"There is no components (CharacterController or PlayerSoundsOperator) on the Player"
+            );
+        
         moveAction = InputSystem.actions.FindAction("Move");
         jumpAction = InputSystem.actions.FindAction("Jump");
         lookAction = InputSystem.actions.FindAction("Look");
@@ -83,6 +93,8 @@ public class PlayerController : MonoBehaviour
                 moveVector2Input, moveAction.ReadValue<Vector2>(),
                 ref smoothVelocity4Movement, movementSmooth);
             originMovement4Jump = moveVector2Input;
+            if(moveVector2Input.magnitude > thresholdToStartWalkSound) _sounds.SetWalkingSound(true);
+            else _sounds.SetWalkingSound(false);
         }
         else
         {
@@ -90,6 +102,9 @@ public class PlayerController : MonoBehaviour
             if (moveAction.IsInProgress())
                 moveVector2Input = Vector2.Lerp(
                     originMovement4Jump, moveAction.ReadValue<Vector2>(), airControl);
+
+            //sounds
+            _sounds.SetWalkingSound(false);
         }
 
         //horizontal moving calculated
@@ -150,7 +165,4 @@ public class PlayerController : MonoBehaviour
         _cameraTransform.localRotation = Quaternion.Euler(_cameraCurrentRotationX, 0f, 0f);
     }
 
-
-
-    [SerializeField] Text screenText;
 }

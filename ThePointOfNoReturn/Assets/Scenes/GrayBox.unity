@@ -543,7 +543,7 @@ MonoBehaviour:
   gravityValue: -30
   jumpHeight: 1.2
   jumpDelay: 0.2
-  screenText: {fileID: 444488457}
+  thresholdToStartWalkSound: 0.4
 --- !u!1 &435022250
 GameObject:
   m_ObjectHideFlags: 0
@@ -1270,7 +1270,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -2687,7 +2687,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -2857,6 +2857,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2031460291}
+  - component: {fileID: 2031460292}
   m_Layer: 0
   m_Name: AudioSources
   m_TagString: Untagged
@@ -2883,6 +2884,22 @@ Transform:
   - {fileID: 1870957438}
   m_Father: {fileID: 421110164}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2031460292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2031460290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12a531e30c0197c46bc95ca567f77763, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stepsSource: {fileID: 847328654}
+  jumpStart: {fileID: 721301913}
+  jumpEnd: {fileID: 1017578342}
+  flying: {fileID: 1870957439}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
