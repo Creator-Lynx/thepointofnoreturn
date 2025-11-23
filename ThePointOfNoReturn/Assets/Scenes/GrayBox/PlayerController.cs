@@ -93,7 +93,7 @@ public class PlayerController : MonoBehaviour
                 moveVector2Input, moveAction.ReadValue<Vector2>(),
                 ref smoothVelocity4Movement, movementSmooth);
             originMovement4Jump = moveVector2Input;
-            if(moveVector2Input.magnitude > thresholdToStartWalkSound) _sounds.SetWalkingSound(true);
+            if(moveAction.IsInProgress()) _sounds.SetWalkingSound(true);
             else _sounds.SetWalkingSound(false);
         }
         else

@@ -2896,10 +2896,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12a531e30c0197c46bc95ca567f77763, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stepsSource: {fileID: 847328654}
+  walkSource: {fileID: 847328654}
   jumpStart: {fileID: 721301913}
   jumpEnd: {fileID: 1017578342}
   flying: {fileID: 1870957439}
+  MaxWalkVolume: 1
+  curvesTimeStep: 0.02
+  StartWalkVolumeCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  StartWalkVolumeTime: 0.1
+  EndWalkVolumeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -0.062013306
+      outSlope: -0.062013306
+      tangentMode: 0
+      weightedMode: 2
+      inWeight: 0
+      outWeight: 0.41764158
+    - serializedVersion: 3
+      time: 0.52726907
+      value: 0.9602483
+      inSlope: -0.25905007
+      outSlope: -0.25905007
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0.25953877
+      outWeight: 0.6529413
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -3.6741583
+      outSlope: -3.6741583
+      tangentMode: 0
+      weightedMode: 1
+      inWeight: 0.4070041
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  EndWalkVolumeTime: 0.3
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
