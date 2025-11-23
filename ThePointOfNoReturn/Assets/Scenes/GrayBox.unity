@@ -543,7 +543,7 @@ MonoBehaviour:
   gravityValue: -30
   jumpHeight: 1.2
   jumpDelay: 0.2
-  thresholdToStartWalkSound: 0.4
+  thresholdToStartWalkSound: 0.89
 --- !u!1 &435022250
 GameObject:
   m_ObjectHideFlags: 0
@@ -2902,6 +2902,7 @@ MonoBehaviour:
   flying: {fileID: 1870957439}
   MaxWalkVolume: 1
   curvesTimeStep: 0.02
+  TimeoutToStopWalking: 0.06
   StartWalkVolumeCurve:
     serializedVersion: 2
     m_Curve: []
@@ -2942,7 +2943,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  EndWalkVolumeTime: 0.3
+  EndWalkVolumeTime: 0.1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
