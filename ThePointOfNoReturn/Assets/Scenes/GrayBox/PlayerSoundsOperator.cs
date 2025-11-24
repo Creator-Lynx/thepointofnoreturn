@@ -13,14 +13,10 @@ public class PlayerSoundsOperator : MonoBehaviour
     [Space(30)]
     [Header("Walk SFX settings")]
     [SerializeField] float MaxWalkVolume = 1f;
-    [SerializeField] float curvesTimeStep = 0.02f;
-    [SerializeField] float TimeoutToStopWalking = 0.06f;
     [Space(10)]
-    [SerializeField] AnimationCurve StartWalkVolumeCurve;
-    [SerializeField] float StartWalkVolumeTime = 0.1f;
-    [Space(10)]
-    [SerializeField] AnimationCurve EndWalkVolumeCurve;
-    [SerializeField] float EndWalkVolumeTime = 0.1f;
+    [SerializeField] AnimationCurve WalkVolumeCurve;
+    [SerializeField] float SecondToExtremeVolume = 1f;
+
 
     [Space(30)]
 
@@ -28,55 +24,37 @@ public class PlayerSoundsOperator : MonoBehaviour
 
     bool isWalking = false;
 
-    bool onStopWalkingCorutine = false;
     public void SetWalkingSound(bool isOn)
     {
-        if (isOn) 
+        isWalking = isOn;
+    }
+
+    float currentCurveTime = 0f;
+    void CurretCurveMoving()
+    {
+        walkSource.volume = WalkVolumeCurve.Evaluate(currentCurveTime) * MaxWalkVolume;
+
+        if(isWalking)
         {
-            if(isWalking) 
+            if(currentCurveTime < 1f)
             {
-                onStopWalkingCorutine = false;
-                StopCoroutine(WalkSoundStopDelay());
-                return;
+                currentCurveTime += Time.fixedDeltaTime / SecondToExtremeVolume;
             }
-            walkSource.Play();
-            StopCoroutine(EndOfWalkSound());
-           
-            walkSource.volume = MaxWalkVolume;
-            isWalking = true;
+            else currentCurveTime = 1f;
         }
-        else 
+        else
         {
-            if(!isWalking) return;
-            if(!onStopWalkingCorutine)
+            if(currentCurveTime > 0f)
             {
-                onStopWalkingCorutine = true;
-                StartCoroutine(WalkSoundStopDelay());
+                currentCurveTime -= Time.fixedDeltaTime / SecondToExtremeVolume;
             }
-            else
-            {
-                return;
-            }
+            else currentCurveTime = 0f;
         }
     }
 
-    IEnumerator EndOfWalkSound()
+    void FixedUpdate()
     {
-        float time = 0;
-        while (time < EndWalkVolumeTime)
-        {
-            walkSource.volume = EndWalkVolumeCurve.Evaluate(time / EndWalkVolumeTime) * MaxWalkVolume;
-            time += curvesTimeStep;
-            yield return new WaitForSeconds(curvesTimeStep);
-        }
-        yield return new WaitForEndOfFrame();
-        walkSource.Pause();
+        CurretCurveMoving();
     }
-    IEnumerator WalkSoundStopDelay()
-    {
-        yield return new WaitForSeconds(TimeoutToStopWalking);
 
-        isWalking = false;
-        StartCoroutine(EndOfWalkSound());
-    }
 }
