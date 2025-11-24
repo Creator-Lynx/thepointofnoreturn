@@ -28,6 +28,20 @@ public class PlayerSoundsOperator : MonoBehaviour
     {
         isWalking = isOn;
     }
+    public void StartJump()
+    {
+        jumpStart.Play();
+    }
+    public void SetInAir()
+    {
+        
+    }
+    public void SetLanded()
+    {
+        jumpEnd.Play();
+    }
+
+    
 
     float currentCurveTime = 0f;
     void CurretCurveMoving()

@@ -83,6 +83,8 @@ public class PlayerController : MonoBehaviour
     Vector2 originMovement4Jump = Vector2.up;
     Vector2 smoothVelocity4Movement;
     bool isWanna2Jump = false;
+    float inAirTime = 0f;
+    float inAirTimeThreshold = 0.1f;
     void Moving()
     {
         //reading input and applying airControl
@@ -95,6 +97,10 @@ public class PlayerController : MonoBehaviour
             originMovement4Jump = moveVector2Input;
             if(moveAction.IsInProgress()) _sounds.SetWalkingSound(true);
             else _sounds.SetWalkingSound(false);
+
+            //landing sound
+            if(inAirTime > inAirTimeThreshold) _sounds.SetLanded();
+            inAirTime = 0f;
         }
         else
         {
@@ -105,6 +111,8 @@ public class PlayerController : MonoBehaviour
 
             //sounds
             _sounds.SetWalkingSound(false);
+            //landing sound
+            inAirTime += Time.deltaTime;
         }
 
         //horizontal moving calculated
@@ -112,7 +120,7 @@ public class PlayerController : MonoBehaviour
             transform.forward * moveVector2Input.y * movementSpeed * Time.deltaTime +
             transform.right * moveVector2Input.x * movementSpeed * Time.deltaTime;
 
-
+        
         //if (_characterController.isGrounded) _yAxisVelocity = -0.5f;
         //jump applied
         //h = V^2 / 2g for falling ogject
@@ -122,6 +130,9 @@ public class PlayerController : MonoBehaviour
             _yAxisVelocity = Mathf.Sqrt(jumpHeight * -2f * gravityValue);
             originMovement4Jump = moveVector2Input;
             isWanna2Jump = false;
+
+            //contact to sound system
+            _sounds.StartJump();
         }
             
         //gravity applied 
