@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Threading;
-using UnityEditor.UIElements;
 using UnityEngine;
 
 public class PlayerSoundsOperator : MonoBehaviour
