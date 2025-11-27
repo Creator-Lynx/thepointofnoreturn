@@ -544,7 +544,6 @@ MonoBehaviour:
   gravityValue: -30
   jumpHeight: 1.2
   jumpDelay: 0.2
-  thresholdToStartWalkSound: 0.89
 --- !u!114 &421110167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1198,9 +1197,9 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 6368353399211134470, guid: 8a508cb3a4fbe4d40a6679a96995502d, type: 2}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: c2308f7b876533d4ca5f7bdf44e744b9, type: 3}
+  m_Resource: {fileID: 8300000, guid: b95a9c7dc8acb1b4bb9a5c1fa12bd790, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.677
   m_Pitch: 1
   Loop: 0
   Mute: 0
