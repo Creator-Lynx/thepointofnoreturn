@@ -27,7 +27,7 @@ public class PlayerSoundsOperator : MonoBehaviour
     }
     public void StartJump()
     {
-        jumpStart.Play();
+        jumpStart.PlayOneShot(jumpStart.clip);
     }
     public void SetInAir()
     {
@@ -35,7 +35,7 @@ public class PlayerSoundsOperator : MonoBehaviour
     }
     public void SetLanded()
     {
-        jumpEnd.Play();
+        jumpEnd.PlayOneShot(jumpEnd.clip);
     }
 
     
