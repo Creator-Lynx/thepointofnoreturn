@@ -1,8 +1,9 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
+[RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(PlayerSoundsOperator))]
 public class PlayerController : MonoBehaviour
 {
     //redisign
@@ -30,9 +31,8 @@ public class PlayerController : MonoBehaviour
     [Header("Jump settings")]
     [SerializeField] float jumpHeight = 2f;
     [SerializeField] float jumpDelay = 0.2f;
-    [Space(20)]
-    [Header("Player SFX settings")]
-    [SerializeField] float thresholdToStartWalkSound = 0.4f;
+
+
 
     void OnEnable()
     {
@@ -47,12 +47,8 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         _characterController = GetComponent<CharacterController>();
-        _sounds = GetComponentInChildren<PlayerSoundsOperator>();
-        if(_characterController == null || _sounds == null) 
-            Debug.LogWarning (
-"There is no components (CharacterController or PlayerSoundsOperator) on the Player"
-            );
-        
+        _sounds = GetComponent<PlayerSoundsOperator>();
+
         moveAction = InputSystem.actions.FindAction("Move");
         jumpAction = InputSystem.actions.FindAction("Jump");
         lookAction = InputSystem.actions.FindAction("Look");

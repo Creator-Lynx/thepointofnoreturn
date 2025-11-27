@@ -418,6 +418,7 @@ GameObject:
   - component: {fileID: 421110162}
   - component: {fileID: 421110165}
   - component: {fileID: 421110166}
+  - component: {fileID: 421110167}
   m_Layer: 0
   m_Name: PLAYER
   m_TagString: Untagged
@@ -544,6 +545,66 @@ MonoBehaviour:
   jumpHeight: 1.2
   jumpDelay: 0.2
   thresholdToStartWalkSound: 0.89
+--- !u!114 &421110167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 421110160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12a531e30c0197c46bc95ca567f77763, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkSource: {fileID: 847328654}
+  jumpStart: {fileID: 721301913}
+  jumpEnd: {fileID: 1017578342}
+  flying: {fileID: 1870957439}
+  MaxWalkVolume: 1
+  WalkVolumeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: -0.00039765812
+      outSlope: -0.00039765812
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0
+      outWeight: 0.35436693
+    - serializedVersion: 3
+      time: 0.2
+      value: 0
+      inSlope: -0.00079051126
+      outSlope: -0.00079051126
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0.3128437
+      outWeight: 0.6705681
+    - serializedVersion: 3
+      time: 0.8
+      value: 1
+      inSlope: 0.0028900101
+      outSlope: 0.0028900101
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0.66898584
+      outWeight: 0.31722772
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.011241255
+      outSlope: 0.011241255
+      tangentMode: 0
+      weightedMode: 1
+      inWeight: 0.34973878
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  SecondToExtremeVolume: 0.2
 --- !u!1 &435022250
 GameObject:
   m_ObjectHideFlags: 0
@@ -2857,7 +2918,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2031460291}
-  - component: {fileID: 2031460292}
   m_Layer: 0
   m_Name: AudioSources
   m_TagString: Untagged
@@ -2884,66 +2944,6 @@ Transform:
   - {fileID: 1870957438}
   m_Father: {fileID: 421110164}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2031460292
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2031460290}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12a531e30c0197c46bc95ca567f77763, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  walkSource: {fileID: 847328654}
-  jumpStart: {fileID: 721301913}
-  jumpEnd: {fileID: 1017578342}
-  flying: {fileID: 1870957439}
-  MaxWalkVolume: 1
-  WalkVolumeCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: -0.00039765812
-      outSlope: -0.00039765812
-      tangentMode: 0
-      weightedMode: 3
-      inWeight: 0
-      outWeight: 0.35436693
-    - serializedVersion: 3
-      time: 0.2
-      value: 0
-      inSlope: -0.00079051126
-      outSlope: -0.00079051126
-      tangentMode: 0
-      weightedMode: 3
-      inWeight: 0.3128437
-      outWeight: 0.6705681
-    - serializedVersion: 3
-      time: 0.8
-      value: 1
-      inSlope: 0.0028900101
-      outSlope: 0.0028900101
-      tangentMode: 0
-      weightedMode: 3
-      inWeight: 0.66898584
-      outWeight: 0.31722772
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0.011241255
-      outSlope: 0.011241255
-      tangentMode: 0
-      weightedMode: 1
-      inWeight: 0.34973878
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  SecondToExtremeVolume: 0.2
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
