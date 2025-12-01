@@ -86,6 +86,7 @@ public class PlayerController : MonoBehaviour
         //reading input and applying airControl
         if (_characterController.isGrounded)
         {
+            _yAxisVelocity = -1f;
             //moveVector2Input = moveAction.ReadValue<Vector2>();
             moveVector2Input = Vector2.SmoothDamp(
                 moveVector2Input, moveAction.ReadValue<Vector2>(),
