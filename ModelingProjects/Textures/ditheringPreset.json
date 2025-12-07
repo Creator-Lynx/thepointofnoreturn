@@ -19,7 +19,7 @@
 		"dither_dither_amount":0.7000,
 		"dither_target_colors":8,
 		"dither_dither_mode":3,
-		"dither_color_dist":3,
+		"dither_color_dist":0,
 		"tint_red":232,
 		"tint_green":255,
 		"tint_blue":255,
