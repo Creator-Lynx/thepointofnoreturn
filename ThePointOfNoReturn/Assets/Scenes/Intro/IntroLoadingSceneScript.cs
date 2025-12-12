@@ -13,25 +13,27 @@ public class IntroLoadingSceneScript : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    bool allowSceneActivation = false;
+    bool allowActivation = false;
     public void AnimationEndCallBack()
     {
-        allowSceneActivation = true;
+        allowActivation = true;
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
     }
     IEnumerator LoadingScene()
     {
-        yield return new WaitForSeconds(4f);
-        allowSceneActivation = false;
+        yield return new WaitForSeconds(0.2f);
+        allowActivation = false;
         var sceneLoading = SceneManager.LoadSceneAsync("Menu", LoadSceneMode.Single);
         sceneLoading.allowSceneActivation = false;
-        while (!allowSceneActivation)
+        while (!allowActivation)
         {
             yield return new WaitForEndOfFrame();
         }
         sceneLoading.allowSceneActivation = true;
-        //SceneManager.UnloadSceneAsync(0);
+
+        yield return new WaitForSeconds(6f);
+        Destroy(gameObject);
     }
     
 
